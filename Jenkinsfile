@@ -3,13 +3,13 @@ pipeline {
   agent { label 'kubepod' }
 
   stages {
-
-    stage('Checkout Source') {
+    # Stage 1 - Checking out this GIT repo
+    stage('Checkout Source') {  
       steps {
-        git url:'https://github.com/justmeandopensource/playjenkins.git', branch:'test-deploy-stage'
+        git url:'https://github.com/eromsu/playjenkins.git', branch:'test-deploy-stage'
       }
     }
-
+    # Stage 2 - Deploying our k8s resources to k8s cluster
     stage('Deploy App') {
       steps {
         script {
