@@ -3,18 +3,18 @@ pipeline {
   agent { label 'kubepod' }
 
   stages {
-    # Stage 1 - Checking out this GIT repo
+    // Stage 1 - Checking out this GIT repo
     stage('Checkout Source') {  
       steps {
         git url:'https://github.com/eromsu/playjenkins.git', branch:'test-deploy-stage'
       }
     }
-    # Stage 2 - Deploying our k8s resources to k8s cluster
+    // Stage 2 - Deploying our k8s resources to k8s cluster
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig") # Using the Jenkins pluging (kubernetesDeploy) 
-          # with k8s manifest file and k8s cluster credential "mykubeconfig" used by Jenkins to connect to cluster
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig") // Using the Jenkins pluging (kubernetesDeploy) 
+          // with k8s manifest file and k8s cluster credential "mykubeconfig" used by Jenkins to connect to cluster
         }
       }
     }
