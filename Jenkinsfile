@@ -13,7 +13,7 @@ pipeline {
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "mykubeconfig") // Using the Jenkins pluging (kubernetesDeploy) 
+          kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "myjenkinsplugink8s") // Using the Jenkins pluging (kubernetesDeploy) 
           // with k8s manifest file and k8s cluster credential "mykubeconfig" used by Jenkins to connect to cluster
         }
       }
