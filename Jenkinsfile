@@ -1,6 +1,6 @@
 pipeline {
 
-  agent { label 'kubepod' }
+  agent { label 'eroms-kubepod' }
 
   stages {
     // Stage 1 - Checking out this GIT repo
