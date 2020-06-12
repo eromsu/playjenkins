@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    registry = "10.105.189.24:5000/eroms/myweb"
+    registry = "http://172.42.42.100:31234/v2/"
     dockerImage = ""
   }
 
