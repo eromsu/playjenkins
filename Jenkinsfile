@@ -1,46 +1,43 @@
 pipeline {
-
   environment {
-    registry = "http://172.42.42.100:31234/v2/"
-    dockerImage = ""
+    registry = "172.42.42.110:5000/v2"
+    //registryCredential = 'mydockerhub'
+    dockerImage = ''
   }
-
   agent any
-
   stages {
-
-    stage('Checkout Source') {
+    stage('Cloning Git') {
       steps {
         git 'https://github.com/eromsu/playjenkins.git'
       }
     }
-
-    stage('Build image') {
+    stage('Building image') {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-
-    stage('Push Image') {
+    stage('Deploy Image') {
       steps{
         script {
-          docker.withRegistry( "" ) {
+          docker.withRegistry( '') {
             dockerImage.push()
           }
         }
       }
     }
-
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
     stage('Deploy App') {
       steps {
         script {
-          kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
+          kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "k8sforplugin")
         }
       }
     }
-
   }
-
 }
