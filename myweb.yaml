@@ -16,7 +16,7 @@ spec:
         app: myweb
     spec:
       containers:
-      - image: eromski/jenkins-docker:9
+      - image: 172.42.42.110:5000/tag101
         imagePullPolicy: Always
         name: myweb
 
